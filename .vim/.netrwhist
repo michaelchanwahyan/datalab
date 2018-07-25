@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/home/icarus_so_ch/app/michael-ws/FUPE_itr1/data/lines.txt'
+let g:netrw_dirhist_2='/home/icarus_so_ch/app/michael-ws/PARK_itr1/notebook/hi.txt'
+let g:netrw_dirhist_3='/home/pikachu/icso/project_ark/notebook'
