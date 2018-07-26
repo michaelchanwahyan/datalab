@@ -79,6 +79,10 @@ RUN mkdir /app                                                                  
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9    ; \
     apt-get -y update                                                                                    ; \
     apt-get -y install r-base                                                                            ; \
+    apt-get -y install libcurl4-openssl-dev libssl-dev                                                   ; \
+    R -e 'install.packages("devtools")'                                                                  ; \
+    R -e 'devtools::install_github("IRkernel/IRkernel")'                                                 ; \
+    R -e 'IRkernel::installspec()'                                                                       ; \
     apt-get -y update                                                                                    ; \
     apt-get -y install nodejs                                                                            ; \
     apt-get -y install ca-certificates                                                                   ; \
@@ -162,6 +166,7 @@ RUN mkdir /app                                                                  
 # info to spark                  <-- spark.driver.extraClassPath
 # max mem consumed per core      <-- spark.driver.memory
 # prevent rdd.collect() exceed   <-- spark.driver.maxResultSize
+
 
 COPY [ ".bashrc" , ".vimrc"               , "/root/"                 ]
 COPY [ "core-site.xml"                    , "$HADOOP_CONF_DIR"       ]
