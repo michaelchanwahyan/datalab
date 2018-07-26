@@ -163,6 +163,13 @@ RUN mkdir /app                                                                  
 # max mem consumed per core      <-- spark.driver.memory
 # prevent rdd.collect() exceed   <-- spark.driver.maxResultSize
 
+# install IRkerenl to Jupyter
+RUN apt-get -y install libcurl4-openssl-dev libssl-dev
+RUN R -e 'install.packages("devtools")'
+RUN R -e 'devtools::install_github("IRkernel/IRkernel")'
+RUN R -e 'IRkernel::installspec()'
+
+
 COPY [ ".bashrc" , ".vimrc"               , "/root/"                 ]
 COPY [ "core-site.xml"                    , "$HADOOP_CONF_DIR"       ]
 COPY [ "startup.sh" , "core-site.xml"     , "/"                      ]
