@@ -47,7 +47,9 @@ echo jupyter lab screening has been started    >> /status ;
 
 date                                           >> /status ;
 echo airflow initdb and webserver is starting  >> /status ;
-screen -S airflow_webservice -dm airflow initdb ; airflow webserver ;
+airflow initdb
+screen -S airflow_webservice -dm airflow webserver
+screen -S scheduler -dm airflow scheduler
 date                                           >> /status ;
 echo airflow has been started                  >> /status ;
 echo done in startup.sh !                      >> /status ;
