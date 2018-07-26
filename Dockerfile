@@ -165,7 +165,7 @@ RUN mkdir /app                                                                  
 
 COPY [ ".bashrc" , ".vimrc"               , "/root/"                 ]
 COPY [ "core-site.xml"                    , "$HADOOP_CONF_DIR"       ]
-COPY [ "startup.sh" , "core-site.xml"     , "/"                      ]
+COPY [ "startup.sh"                       , "/"                      ]
 COPY [ "airflow"                          , "/opt/airflow"           ]
 
 EXPOSE 9090 9999
