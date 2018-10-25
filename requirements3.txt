@@ -1,0 +1,12 @@
+nltk==3.3
+implicit==0.3.6
+toolz==0.9.0
+fastcache==1.0.2
+multiprocess==0.70.6.1
+OSQP
+ECOS
+SCS
+cvxpy==1.0.8
+jieba==0.39
+astcheck==0.2.5
+astsearch==0.1.3

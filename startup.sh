@@ -1,5 +1,15 @@
 #!/bin/sh
 
+export TZ=Asia/Hong_Kong
+
+# load cron configuration
+mkdir -p /app/cron ; touch /app/cron/cron.config
+crontab /app/cron/cron.config
+
+# git set to only push "current"
+# + only "with same branch name"
+git config --global push.default simple
+
 # --------------------
 # hadoop and gcp configuration
 # --------------------
@@ -7,7 +17,7 @@
 mv    /core-site.xml    $HADOOP_CONF_DIR
 
 # gcp client service account set up for shell env
-gcloud   auth   activate-service-account   --quiet   --key-file=/path/to/your/credential.json
+gcloud   auth   activate-service-account   --quiet   --key-file=/path/to/your/gcp/credential.json
 
 # gcp client service account set up for python env
 # no need because it is embedded into Dockerfile
@@ -35,11 +45,11 @@ pushd /app/lib/dsutil           ; rm -f dsutil/.git*           ; date >> /status
 # Jupyter Lab
 # --------------------
 
-date                                           >> /status ;
-echo jupyter lab screening is starting         >> /status ;
-screen -S jupyter_lab -dm jupyter lab --ip=* --port=9999 --no-browser --notebook-dir=/app --allow-root --NotebookApp.token='dsteam' ;
-date                                           >> /status ;
-echo jupyter lab screening has been started    >> /status ;
+date >> /status
+echo jupyter lab screening is starting >> /status
+screen -S jupyter_lab -dm jupyter lab --ip=0.0.0.0 --port=9999 --no-browser --notebook-dir=/app --allow-root --NotebookApp.token='dsteam' ;
+date >> /status
+echo jupyter lab screening has been started >> /status
 
 # --------------------
 # Airflow
@@ -53,5 +63,7 @@ screen -S scheduler -dm airflow scheduler
 date                                           >> /status ;
 echo airflow has been started                  >> /status ;
 echo done in startup.sh !                      >> /status ;
+
+printenv >> /etc/environment ; cron
 
 bash

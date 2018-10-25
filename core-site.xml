@@ -51,7 +51,7 @@
     </property>
     <property>
       <name>google.cloud.auth.service.account.json.keyfile</name>
-      <value>/app/settings/certs/ds_bigquery_credential.json</value>
+      <value>/path/to/your/gcp/credential.json</value>
       <description>
         The JSON key file of the service account used for GCS
         access when google.cloud.auth.service.account.enable is true.
