@@ -11,10 +11,8 @@ crontab /app/cron/cron.config
 git config --global push.default simple
 
 # --------------------
-# hadoop and gcp configuration
+# gcp configuration
 # --------------------
-
-mv    /core-site.xml    $HADOOP_CONF_DIR
 
 # gcp client service account set up for shell env
 gcloud   auth   activate-service-account   --quiet   --key-file=/path/to/your/gcp/credential.json

@@ -123,8 +123,8 @@ RUN wget http://www-us.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2
     rm   -f    spark-2.3.1-bin-hadoop2.7.tgz
 
 RUN wget http://www-us.apache.org/dist/hadoop/common/hadoop-2.7.6/hadoop-2.7.6.tar.gz ;\
-   tar  -zxvf hadoop-2.7.6.tar.gz ;\
-   rm   -f    hadoop-2.7.6.tar.gz
+    tar  -zxvf hadoop-2.7.6.tar.gz ;\
+    rm   -f    hadoop-2.7.6.tar.gz
 
 RUN echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list ;\
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - ;\
