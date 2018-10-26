@@ -1,3 +1,6 @@
+*// asterisks remark : since late Oct. 2018 this repo grows to > 350MB
+// possibly due to the large jdk file ...
+// cloning process should take less than 10 minutes ...*
 ### Introduction
 
 DataLab is an open-source environment for data science team handling daily operations. It installed some of the most popular data science tools including Airflow, Spark, Jupyter lab and famous python packages including Keras, Scikit-learn, Pandas and Numpy. DataLab integrates those tools with custom packages. 
