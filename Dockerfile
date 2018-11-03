@@ -6,6 +6,7 @@ LABEL maintainer "michaelchan_wahyan@yahoo.com.hk"
 
 ENV SHELL=/bin/bash \
     TZ=Asia/Hong_Kong \
+    PYTHONIOENCODING=UTF-8 \
     AIRFLOW_HOME=/opt/airflow \
     CLOUD_SDK_REPO="cloud-sdk-xenial" \
     HADOOP_COMMON_HOME=/hadoop-2.7.6 \
