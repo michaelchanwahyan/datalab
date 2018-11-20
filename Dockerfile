@@ -79,6 +79,8 @@ RUN curl https://bootstrap.pypa.io/get-pip.py | python3.6 ;\
     rm -f /usr/bin/python3m && ln -s /usr/bin/python3.6m /usr/bin/python3m ;\
     apt-get -y install python3.6-dev ; apt-get -y upgrade ; apt-get -y install python3.6-tk cowsay fortune sl
 
+RUN apt-get -y install libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev
+
 RUN R -e 'install.packages("devtools")' ;\
     R -e 'devtools::install_github("IRkernel/IRkernel")' ;\
     R -e 'IRkernel::installspec()' ;\
