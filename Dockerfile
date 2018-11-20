@@ -79,20 +79,7 @@ RUN curl https://bootstrap.pypa.io/get-pip.py | python3.6 ;\
     rm -f /usr/bin/python3m && ln -s /usr/bin/python3.6m /usr/bin/python3m ;\
     apt-get -y install python3.6-dev ; apt-get -y upgrade ; apt-get -y install python3.6-tk cowsay fortune sl
 
-COPY [ "requirements1.txt" , "/" ]
-RUN pip3 install -r requirements1.txt
-
-COPY [ "requirements2.txt" , "/" ]
-RUN pip3 install -r requirements2.txt
-
-COPY [ "requirements3.txt" , "/" ]
-RUN pip3 install -r requirements3.txt
-
-COPY [ "requirements4.txt" , "/" ]
-RUN pip3 install -r requirements4.txt
-
-COPY [ "requirements5.txt" , "/" ]
-RUN pip3 install -r requirements5.txt
+RUN apt-get -y install libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev
 
 RUN R -e 'install.packages("devtools")' ;\
     R -e 'devtools::install_github("IRkernel/IRkernel")' ;\
@@ -108,6 +95,21 @@ RUN R -e 'install.packages("devtools")' ;\
     R -e 'install.packages("progress")' ;\
     R -e 'install.packages("ggplot2")' ;\
     R -e 'install.packages("forecast")'
+
+COPY [ "requirements1.txt" , "/" ]
+RUN pip3 install -r requirements1.txt
+
+COPY [ "requirements2.txt" , "/" ]
+RUN pip3 install -r requirements2.txt
+
+COPY [ "requirements3.txt" , "/" ]
+RUN pip3 install -r requirements3.txt
+
+COPY [ "requirements4.txt" , "/" ]
+RUN pip3 install -r requirements4.txt
+
+COPY [ "requirements5.txt" , "/" ]
+RUN pip3 install -r requirements5.txt
 
 RUN jupyter nbextension enable --py widgetsnbextension ;\
     jupyter serverextension enable --py jupyterlab
