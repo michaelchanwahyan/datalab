@@ -9,3 +9,4 @@ protobuf==3.6.1
 ipywidgets==7.4.1
 jupyterlab==0.34.9
 jupyterlab-launcher==0.13.1
+jupyterlab_latex==0.4.1

@@ -70,6 +70,14 @@ RUN mkdir /app ;\
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 ;\
     apt-get -y update
 
+RUN wget http://www-us.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz ;\
+    tar  -zxvf spark-2.3.1-bin-hadoop2.7.tgz ;\
+    rm   -f    spark-2.3.1-bin-hadoop2.7.tgz
+
+RUN wget http://www-us.apache.org/dist/hadoop/common/hadoop-2.7.6/hadoop-2.7.6.tar.gz ;\
+    tar  -zxvf hadoop-2.7.6.tar.gz ;\
+    rm   -f    hadoop-2.7.6.tar.gz
+
 RUN apt-get -y install libcurl4-openssl-dev libssl-dev ;\
     apt-get -y update ;\
     apt-get -y install r-base bc nodejs ca-certificates musl-dev gcc make g++ gfortran python3.6
@@ -112,22 +120,11 @@ COPY [ "requirements5.txt" , "/" ]
 RUN pip3 install -r requirements5.txt
 
 RUN jupyter nbextension enable --py widgetsnbextension ;\
-    jupyter serverextension enable --py jupyterlab
+    jupyter serverextension enable --py jupyterlab ;\
+    jupyter labextension install @jupyterlab/latex
 
 RUN tar  -zxvf jdk-8u171-linux-x64.tar.gz ;\
     rm   -f    jdk-8u171-linux-x64.tar.gz
-
-#RUN wget https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh ;\
-#    bash Anaconda3-5.0.1-Linux-x86_64.sh -b -p ~/anaconda ;\
-#    rm   -f  Anaconda3-5.0.1-Linux-x86_64.sh
-
-RUN wget http://www-us.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz ;\
-    tar  -zxvf spark-2.3.1-bin-hadoop2.7.tgz ;\
-    rm   -f    spark-2.3.1-bin-hadoop2.7.tgz
-
-RUN wget http://www-us.apache.org/dist/hadoop/common/hadoop-2.7.6/hadoop-2.7.6.tar.gz ;\
-    tar  -zxvf hadoop-2.7.6.tar.gz ;\
-    rm   -f    hadoop-2.7.6.tar.gz
 
 RUN echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list ;\
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - ;\
