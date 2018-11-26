@@ -10,10 +10,6 @@ crontab /app/cron/cron.config
 # + only "with same branch name"
 git config --global push.default simple
 
-pushd /app/lib                                                 ; date >> /status ; echo git clone nbparameterise   >> /status ;
-git  clone  https://github.com/IcarusSO/nbparameterise.git                                                            ; popd  ;
-pushd /app/lib/nbparameterise   ; rm -f nbparameterise/.git*   ; date >> /status ; pwd >> /status ; pip3 install -e . ; popd  ;
-
 # --------------------
 # Jupyter Lab
 # --------------------

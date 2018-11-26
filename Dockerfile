@@ -135,6 +135,9 @@ RUN jupyter nbextension enable --py widgetsnbextension ;\
 # max mem consumed per core      <-- spark.driver.memory
 # prevent rdd.collect() exceed   <-- spark.driver.maxResultSize
 
+RUN pip3 install git+https://github.com/michaelchanwahyan/nbparameterise.git
+
+
 COPY [ ".bashrc" , ".vimrc"               , "/root/"                 ]
 COPY [ "core-site.xml"                    , "$HADOOP_CONF_DIR"       ]
 COPY [ "startup.sh"                       , "/"                      ]
