@@ -31,10 +31,6 @@ pushd /app/lib                                                 ; date >> /status
 git  clone  https://github.com/IcarusSO/bigQueryExporter.git                                                          ; popd  ;
 pushd /app/lib/bigQueryExporter ; rm -f bigQueryExporter/.git* ; date >> /status ; pwd >> /status ; pip3 install -e . ; popd  ;
 
-pushd /app/lib                                                 ; date >> /status ; echo git clone nbparameterise   >> /status ;
-git  clone  https://github.com/IcarusSO/nbparameterise.git                                                            ; popd  ;
-pushd /app/lib/nbparameterise   ; rm -f nbparameterise/.git*   ; date >> /status ; pwd >> /status ; pip3 install -e . ; popd  ;
-
 pushd /app/lib                                                 ; date >> /status ; echo git clone dsutil           >> /status ;
 git  clone  https://github.com/IcarusSO/dsutil.git                                                                    ; popd  ;
 pushd /app/lib/dsutil           ; rm -f dsutil/.git*           ; date >> /status ; pwd >> /status ; pip3 install -e . ; popd  ;
