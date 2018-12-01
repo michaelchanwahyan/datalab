@@ -8,6 +8,7 @@ ENV SHELL=/bin/bash \
     TZ=Asia/Hong_Kong \
     PYTHONIOENCODING=UTF-8 \
     AIRFLOW_HOME=/opt/airflow \
+    AIRFLOW_GPL_UNIDECODE=yes \
     CLOUD_SDK_REPO="cloud-sdk-xenial" \
     HADOOP_COMMON_HOME=/hadoop-2.7.6 \
     HADOOP_HDFS_HOME=/hadoop-2.7.6 \
@@ -81,20 +82,14 @@ RUN curl https://bootstrap.pypa.io/get-pip.py | python3.6 ;\
 
 RUN apt-get -y install libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev
 
-RUN R -e 'install.packages("devtools")' ;\
+# jupyter(lab) related python packages are
+# required before installing interactive R kernel
+COPY [ "requirements0.txt" , "/" ]
+RUN pip3 install -r requirements0.txt
+
+RUN R -e 'install.packages(c("devtools", "bayesAB", "plyr", "dplyr", "data.table", "bigrquery", "pwr", "cowsay", "fortunes", "progress", "ggplot2", "forecast"))' ;\
     R -e 'devtools::install_github("IRkernel/IRkernel")' ;\
-    R -e 'IRkernel::installspec()' ;\
-    R -e 'install.packages("bayesAB")' ;\
-    R -e 'install.packages("plyr")' ;\
-    R -e 'install.packages("dplyr")' ;\
-    R -e 'install.packages("data.table")' ;\
-    R -e 'install.packages("bigrquery")' ;\
-    R -e 'install.packages("pwr")' ;\
-    R -e 'install.packages("cowsay")' ;\
-    R -e 'install.packages("fortunes")' ;\
-    R -e 'install.packages("progress")' ;\
-    R -e 'install.packages("ggplot2")' ;\
-    R -e 'install.packages("forecast")'
+    R -e 'IRkernel::installspec()'
 
 COPY [ "requirements1.txt" , "/" ]
 RUN pip3 install -r requirements1.txt
