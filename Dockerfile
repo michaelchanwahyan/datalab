@@ -24,7 +24,7 @@ ENV SHELL=/bin/bash \
     SPARK_HOME=/spark-2.3.1-bin-hadoop2.7 \
     SPARK_PATH=/spark-2.3.1-bin-hadoop2.7 \
     YARN_HOME=/hadoop-2.7.6 \
-    PATH=$PATH:/root/anaconda/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/local/lib:/usr/sbin:/usr/bin:/sbin:/bin:/hadoop-2.7.6/sbin:/hadoop-2.7.6/bin
+    PATH=$PATH:/root/anaconda/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/local/lib:/usr/lib:/usr/sbin:/usr/bin:/sbin:/bin:/hadoop-2.7.6/sbin:/hadoop-2.7.6/bin
 
 # ========================
 # Jupyter Lab installation
