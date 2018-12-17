@@ -134,8 +134,9 @@ COPY [ "requirements5.txt" , "/" ]
 RUN pip3 install -r requirements5.txt
 
 RUN jupyter nbextension enable --py widgetsnbextension ;\
-    jupyter serverextension enable --py jupyterlab ;\
-    jupyter labextension install @jupyterlab/latex
+    jupyter serverextension enable --py jupyterlab
+    #jupyter serverextension enable --py jupyterlab ;\
+    #jupyter labextension install @jupyterlab/latex
 
 # info to hadoop                 <-- HADOOP_CLASSPATH
 # info to spark                  <-- spark.driver.extraClassPath
