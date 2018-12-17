@@ -1,6 +1,9 @@
 *quick remark: in order to download the repo efficiently, one is suggested to perform 
+
 `git clone https://github.com/michaelchanwahyan/datalab.git`
+
 `cd datalab`
+
 `git lfs pull`*
 
 ### Introduction
