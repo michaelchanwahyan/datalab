@@ -1,8 +1,7 @@
-*// asterisks remark : since late Oct. 2018 this repo grows to > 350MB
-
-// possibly due to the large jdk file ...
-
-// cloning process should take less than 10 minutes ...*
+*quick remark: in order to download the repo efficiently, one is suggested to perform 
+`git clone https://github.com/michaelchanwahyan/datalab.git`
+`cd datalab`
+`git lfs pull`*
 
 ### Introduction
 
