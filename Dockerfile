@@ -67,7 +67,7 @@ RUN mkdir /app ;\
     apt-get -y update ;\
     apt-get -y upgrade ;\
     apt-get -y install screen apt-utils cmake htop wget vim nano curl git \
-               software-properties-common apt-transport-https ;\
+               software-properties-common apt-transport-https net-tools wget ;\
     add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial/' ;\
     apt-get -y update ; add-apt-repository ppa:jonathonf/python-3.6 ; apt-get -y update ;\
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 ;\
