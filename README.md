@@ -1,4 +1,10 @@
-*quick remark: in order to download the repo efficiently, one is suggested to perform 
+*remark: This docker image is available in https://hub.docker.com/r/michaelchanwahyan/datalab
+
+You may download it directly by
+
+`docker pull michaelchanwahyan/datalab:latest`*
+
+*remark: to download the repo efficiently, the following method is suggested. 
 
 `git clone https://github.com/michaelchanwahyan/datalab.git`
 
