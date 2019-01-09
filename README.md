@@ -36,7 +36,11 @@ You may get it by `docker pull michaelchanwahyan/datalab:latest`
 
 ##### Remark 2:
 
-To download this repo fast, you are suggested to 
+To download this repo fast, you are suggested to perform
+
+`git lfs clone https://github.com/michaelchanwahyan/datalab.git`
+
+or
 
 `git clone https://github.com/michaelchanwahyan/datalab.git`
 
