@@ -93,8 +93,8 @@ RUN apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev libgmp-dev 
     apt-get -y update ;\
     apt-get -y install r-base bc npm ca-certificates musl-dev gcc make g++ gfortran python3.6
 
-RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - ;\
-    apt-get -y install nodejs
+# RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - ;\
+#     apt-get -y install nodejs
 
 RUN echo export     HADOOP_CLASSPATH=/gcs-connector-hadoop/gcs-connector-latest-hadoop2.jar >> /hadoop-2.7.6/etc/hadoop/hadoop-env.sh ;\
     echo spark.driver.extraClassPath /gcs-connector-hadoop/gcs-connector-latest-hadoop2.jar >> $SPARK_HOME/conf/spark-defaults.conf ;\
