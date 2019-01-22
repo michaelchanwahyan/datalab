@@ -73,11 +73,11 @@ RUN mkdir /app ;\
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 ;\
     apt-get -y update
 
-RUN wget http://www-us.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz ;\
+RUN wget https://archive.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz ;\
     tar  -zxvf spark-2.3.1-bin-hadoop2.7.tgz ;\
     rm   -f    spark-2.3.1-bin-hadoop2.7.tgz
 
-RUN wget http://www-us.apache.org/dist/hadoop/common/hadoop-2.7.6/hadoop-2.7.6.tar.gz ;\
+RUN wget https://archive.apache.org/dist/hadoop/core/hadoop-2.7.6/hadoop-2.7.6.tar.gz ;\
     tar  -zxvf hadoop-2.7.6.tar.gz ;\
     rm   -f    hadoop-2.7.6.tar.gz
 
