@@ -5,6 +5,13 @@ export TZ=Asia/Hong_Kong
 # load dag configuration
 mkdir -p /app/dags
 
+if ls /app/startup;
+	then echo 'installed';
+	else
+		mkdir -p /app/startup;
+		cp /startup/quick_install.sh /app/startup/quick_install.sh;
+fi
+
 # git set to only push "current"
 # + only "with same branch name"
 git config --global push.default simple
