@@ -9,7 +9,7 @@ if ls /app/startup;
 fi;
 
 export TZ=Asia/Hong_Kong
-apt-install bc
+apt install bc
 docker rm -f ds_workspace
 mem=$(free -g | head -2 | tail -1 | awk -F " " '{print $2}') # if you run to error, set mem to your system memory (in GB unit)
 target_mem=$(echo "$mem * 0.9" | bc) # if you run to error, install bc
