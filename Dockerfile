@@ -117,20 +117,18 @@ RUN pip3 install -r requirements0.txt ;\
 
 RUN jupyter nbextension enable --py widgetsnbextension ;\
     jupyter serverextension enable --py jupyterlab
-    #jupyter serverextension enable --py jupyterlab ;\
     #jupyter labextension install @jupyterlab/latex
 
 # info to hadoop                 <-- HADOOP_CLASSPATH
 # info to spark                  <-- spark.driver.extraClassPath
 # max mem consumed per core      <-- spark.driver.memory
 # prevent rdd.collect() exceed   <-- spark.driver.maxResultSize
-
-RUN pip3 install git+https://github.com/michaelchanwahyan/nbparameterise.git
+# RUN pip3 install git+https://github.com/michaelchanwahyan/nbparameterise.git
 
 
 COPY [ ".bashrc" , ".vimrc"               , "/root/"                 ]
 COPY [ "core-site.xml"                    , "$HADOOP_CONF_DIR"       ]
-COPY [ "startup.sh"                       , "/"                      ]
+COPY [ "startup"                          , "/app"                      ]
 COPY [ "airflow"                          , "/opt/airflow"           ]
 
 EXPOSE 9090 9999
