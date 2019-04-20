@@ -1,5 +1,13 @@
 #!/bin/sh
 clear
+
+
+mkdir -p /app
+if ls /app/startup;
+	then echo "";
+	else cp -r ./startup /app/startup;
+fi;
+
 export TZ=Asia/Hong_Kong
 apt-install bc
 docker rm -f ds_workspace
@@ -15,4 +23,4 @@ docker run -p 9999:9999 \
            --name=ds_workspace \
            --memory="$target_mem"g \
            datalab:stable \
-           /bin/bash /startup/startup.sh
+           /bin/bash /app/startup/startup.sh
