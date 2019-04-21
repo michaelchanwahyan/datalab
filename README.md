@@ -1,54 +1,26 @@
-### Introduction
+# Welcome to DS_WORKSPACE
 
-datalab is a JupyerLab-based open-source platform for scientific research for people of size mild scale team where sharing of code and dataset is allowed. datalab supports Interactive Python (IPython) and R (IR) in which many popular library packages for scientific computation are installed, including NumPy, SciPy, MatPlotLib, scikit-learn, and more tools for statistical research. There are also Tensorflow and Keras for users who love playing deep learning charm and AI magic.
+![alt text](https://user-images.githubusercontent.com/10301755/56467295-ae3df200-644f-11e9-91f4-9f949099ff44.png)
 
-We also introduce Spark+Hadoop as a good infrastructure for intensive computation so that users receive benefit wherever highend performance machine is available. There are many more tools listed in those requirements files.
 
-An automatic job scheduling tool named 'apache-airflow' is also prepared, although my primary preference always goes to 'cron' because simplicity is beauty.
+# One Station for All Parties
+![alt text](https://user-images.githubusercontent.com/10301755/56466823-7d5abe80-6449-11e9-84a6-d80ab8ef9692.png)
 
-datalab hopes users can save time in establishing a JupyterLab platform with many tools ready.
+# Sufficient Packages
+![alt text](https://user-images.githubusercontent.com/10301755/56467600-90728c00-6453-11e9-88a4-edb5f71a4815.png)
 
-### Usage (core)
+# Introduction
 
-To turn on the docker image and start JupyerLab:
+DS_WORKSPACE supports a data science team's daily operation. Different parties including businessman, data scientists and engineers can work in a same platform and boosts efficiencies.
 
-if you pull the image from docker hub (see remark 1):
 
-`docker run -dt -p 9999:9999 michaelchanwahyan/datalab:latest jupyter lab --ip=0.0.0.0 --port=9999 --no-browser --notebook-dir=/app --allow-root --NotebookApp.token='yourpassword'`; or
-
-if you build the image from source (see remark 2):
-
-`docker run -dt -p 9999:9999 datalab:stable jupyter lab --ip=0.0.0.0 --port=9999 --no-browser --notebook-dir=/app --allow-root --NotebookApp.token='yourpassword'`; or
-
-if you want full usage on JupyterLab and Apache-Airflow and Docker-Volume mounting, see `startup.sh` and below Useful Resources below.
-
-### Useful Resources
+# Tutorials
 - #### [Installation](https://github.com/michaelchanwahyan/datalab/wiki/Installation)
 - #### [First Project](https://github.com/michaelchanwahyan/datalab/wiki/First-project)
 - #### [Set Schedule](https://github.com/michaelchanwahyan/datalab/wiki/Set-Schedule)
 
 
-##### Remark 1:
-
-This docker image is available in https://hub.docker.com/r/michaelchanwahyan/datalab
-
-You may get it by `docker pull michaelchanwahyan/datalab:latest`
-
-##### Remark 2:
-
-To download this repo fast, you are suggested to perform
-
-`git lfs clone https://github.com/michaelchanwahyan/datalab.git`
-
-or
-
-`git clone https://github.com/michaelchanwahyan/datalab.git`
-
-`cd datalab`
-
-`git lfs pull`
-
-### Contributed by:
+# Contributed by:
 
 - Michael https://github.com/michaelchanwahyan
 - Icarus https://github.com/IcarusSO
