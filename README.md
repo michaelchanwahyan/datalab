@@ -15,9 +15,10 @@ DS_WORKSPACE supports a data science team's daily operation. Different parties i
 
 
 # Tutorials
-- #### [Installation](https://github.com/michaelchanwahyan/datalab/wiki/Installation)
-- #### [First Project](https://github.com/michaelchanwahyan/datalab/wiki/First-project)
-- #### [Set Schedule](https://github.com/michaelchanwahyan/datalab/wiki/Set-Schedule)
+- #### [Installation](https://github.com/IcarusSO/ds_workspace/wiki/Installation)
+- #### [First Project](https://github.com/IcarusSO/ds_workspace/wiki/First-Project)
+- #### [First Scheduler](https://github.com/IcarusSO/ds_workspace/wiki/First-Scheduler)
+- #### [Add Own Packages](https://github.com/IcarusSO/ds_workspace/wiki/Add-Own-Packages)
 
 
 # Contributed by:
