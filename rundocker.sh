@@ -35,5 +35,5 @@ docker run -p 9999:9999 \
            -dt \
            --name=ds_workspace \
            --memory="$target_mem"g \
-           datalab:stable \
+           ds_workspace:stable \
            /bin/bash /app/startup/startup.sh
