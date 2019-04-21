@@ -128,7 +128,7 @@ RUN jupyter nbextension enable --py widgetsnbextension ;\
 
 COPY [ ".bashrc" , ".vimrc"               , "/root/"                 ]
 COPY [ "core-site.xml"                    , "$HADOOP_CONF_DIR"       ]
-COPY [ "startup"                          , "/"                      ]
+COPY [ "app_template"                     , "/"                      ]
 COPY [ "airflow"                          , "/opt/airflow"           ]
 
 EXPOSE 9090 9999
