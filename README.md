@@ -1,6 +1,6 @@
 # Welcome to DS_WORKSPACE
 
-![alt text](https://user-images.githubusercontent.com/10301755/56467295-ae3df200-644f-11e9-91f4-9f949099ff44.png)
+![alt text](https://user-images.githubusercontent.com/10301755/56483988-cf5e1b80-64ff-11e9-8fa7-f266af734deb.png)
 
 
 # One Station for All Parties
