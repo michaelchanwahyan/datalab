@@ -107,6 +107,34 @@ RUN apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev libgmp-dev 
     apt-get -y upgrade ;\
     apt-get -y install python3.6-tk
 
+# ===========================================
+# Open3D project compilation reference:
+# http://www.open3d.org/docs/compilation.html
+# ===========================================
+RUN git clone --recursive https://github.com/intel-isl/Open3D ;\
+    git cjeclpit tags/0.6.0 ;\
+    cd /Open3D ;\
+    mkdir build ;\
+    cd build ;\
+    cmake -DBUILD_EIGEN3=ON \
+          -DBUILD_GLEW=ON \
+          -DBUILD_GLFW=ON \
+          -DBUILD_JPEG=ON \
+          -DBUILD_JSONCPP=ON \
+          -DBUILD_PNG=ON \
+          -DBUILD_PYBIND11=OFF \
+          -DBUILD_PYTHON_MODULE=OFF \
+          -BUILD_PYTHON_TUTORIALS=OFF \
+          -WITH_OPENMP=ON \
+          -DCMAKE_INSTALL_PREFIX=/Open3D \
+          .. ;\
+    cd /Open3D/buildi ;\
+    make -j4 ;\
+    make install ;\
+    cd /Open3D/docs ;\
+    doxygen Doxyfile ;\
+    cd /
+
 # jupyter(lab) related python packages are
 # required before installing interactive R kernel
 COPY [ "requirements0.txt" , "requirements1.txt" , "requirements2.txt" , "requirements3.txt" , "requirements4.txt" , "requirements5.txt" , "/" ]
