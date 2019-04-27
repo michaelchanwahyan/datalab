@@ -97,7 +97,8 @@ RUN apt-get -y update ;\
 # max mem consumed per core      <-- spark.driver.memory
 # prevent rdd.collect() exceed   <-- spark.driver.maxResultSize
 
-RUN apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev libx11-dev xorg-dev libglu1-mesa-dev;\
+RUN apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev ;\
+    apt-get -y install libx11-dev xorg-dev libglu1-mesa-dev libgl1-mesa-glx libglew-dev libglfw3-dev libjsoncpp-dev libpng-dev libpng16-dev libjpeg-dev ;\
     apt-get -y update ;\
     apt-get -y install r-base python3.6 ;\
     curl https://bootstrap.pypa.io/get-pip.py | python3.6 ;\
@@ -105,7 +106,9 @@ RUN apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev libgmp-dev 
     rm -f /usr/bin/python3m && ln -s /usr/bin/python3.6m /usr/bin/python3m ;\
     apt-get -y install python3.6-dev ;\
     apt-get -y upgrade ;\
-    apt-get -y install python3.6-tk
+    apt-get -y install python3.6-tk ;\
+    curl -sL https://deb.nodesource.com/setup_10.x | bash - ;\
+    apt-get install -y nodejs
 
 # ===========================================
 # Open3D project compilation reference:
