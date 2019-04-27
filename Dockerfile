@@ -23,7 +23,7 @@ ENV SHELL=/bin/bash \
     SPARK_HOME=/spark-2.4.0-bin-hadoop2.7 \
     SPARK_PATH=/spark-2.4.0-bin-hadoop2.7 \
     YARN_HOME=/hadoop-2.7.7 \
-    PATH=$PATH:/root/anaconda/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/local/lib:/usr/lib:/usr/sbin:/usr/bin:/sbin:/bin:/hadoop-2.7.7/sbin:/hadoop-2.7.7/bin
+    PATH=$PATH:/root/anaconda/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/local/lib:/usr/lib:/usr/sbin:/usr/bin:/sbin:/bin:/hadoop-2.7.7/sbin:/hadoop-2.7.7/bin:/Open3D/lib
 
 # ========================
 # Jupyter Lab installation
@@ -62,7 +62,8 @@ COPY [ "jdk-8u171-linux-x64.tar.gz" , "/" ]
 RUN apt-get -y update ;\
     apt-get -y upgrade ;\
     apt-get -y install screen apt-utils cmake htop wget vim nano curl git \
-               software-properties-common apt-transport-https net-tools wget \
+               software-properties-common apt-transport-https net-tools \
+               bc npm ca-certificates musl-dev gcc make g++ gfortran doxygen \
                cowsay fortune sl ;\
     add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial/' ;\
     apt-get -y update ;\
@@ -96,9 +97,9 @@ RUN apt-get -y update ;\
 # max mem consumed per core      <-- spark.driver.memory
 # prevent rdd.collect() exceed   <-- spark.driver.maxResultSize
 
-RUN apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev ;\
+RUN apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev libx11-dev xorg-dev libglu1-mesa-dev;\
     apt-get -y update ;\
-    apt-get -y install r-base bc npm ca-certificates musl-dev gcc make g++ gfortran python3.6 ;\
+    apt-get -y install r-base python3.6 ;\
     curl https://bootstrap.pypa.io/get-pip.py | python3.6 ;\
     rm -f /usr/bin/python3  && ln -s /usr/bin/python3.6  /usr/bin/python3 ;\
     rm -f /usr/bin/python3m && ln -s /usr/bin/python3.6m /usr/bin/python3m ;\
