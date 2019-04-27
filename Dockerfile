@@ -1,6 +1,5 @@
 # Dockerfile for building general development
 # environment for Data Science Analytics
-# customized for TVB Big Data Team
 FROM ubuntu:16.04
 LABEL maintainer "michaelchan_wahyan@yahoo.com.hk"
 
@@ -92,6 +91,11 @@ RUN apt-get -y update ;\
     echo spark.driver.maxResultSize             5g                                          >> $SPARK_HOME/conf/spark-defaults.conf ;\
     echo spark.driver.allowMultipleContexts     True                                        >> $SPARK_HOME/conf/spark-defaults.conf
 
+# info to hadoop                 <-- HADOOP_CLASSPATH
+# info to spark                  <-- spark.driver.extraClassPath
+# max mem consumed per core      <-- spark.driver.memory
+# prevent rdd.collect() exceed   <-- spark.driver.maxResultSize
+
 RUN apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev ;\
     apt-get -y update ;\
     apt-get -y install r-base bc npm ca-certificates musl-dev gcc make g++ gfortran python3.6 ;\
@@ -120,12 +124,7 @@ RUN jupyter nbextension enable --py widgetsnbextension ;\
     #jupyter serverextension enable --py jupyterlab ;\
     #jupyter labextension install @jupyterlab/latex
 
-# info to hadoop                 <-- HADOOP_CLASSPATH
-# info to spark                  <-- spark.driver.extraClassPath
-# max mem consumed per core      <-- spark.driver.memory
-# prevent rdd.collect() exceed   <-- spark.driver.maxResultSize
-
-RUN pip3 install git+https://github.com/michaelchanwahyan/nbparameterise.git
+RUN pip3 install git+https://github.com/IcarusSO/nbparameterise.git
 
 
 COPY [ ".bashrc" , ".vimrc"               , "/root/"                 ]
