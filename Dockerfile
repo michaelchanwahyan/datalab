@@ -115,7 +115,8 @@ RUN apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev libgmp-dev 
 # http://www.open3d.org/docs/compilation.html
 # ===========================================
 RUN git clone --recursive https://github.com/intel-isl/Open3D ;\
-    git cjeclpit tags/0.6.0 ;\
+    git checkout tags/0.6.0 ;\
+    git branch release-0.6.0 ;\
     cd /Open3D ;\
     mkdir build ;\
     cd build ;\
@@ -131,7 +132,7 @@ RUN git clone --recursive https://github.com/intel-isl/Open3D ;\
           -WITH_OPENMP=ON \
           -DCMAKE_INSTALL_PREFIX=/Open3D \
           .. ;\
-    cd /Open3D/buildi ;\
+    cd /Open3D/build ;\
     make -j4 ;\
     make install ;\
     cd /Open3D/docs ;\
