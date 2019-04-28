@@ -34,15 +34,17 @@ This docker image is available in https://hub.docker.com/r/michaelchanwahyan/dat
 
 You may get it by `docker pull michaelchanwahyan/datalab:latest`
 
+note: currently it points to the branch `dockerbuild-trigger`
+
 ##### Remark 2:
 
 To download this repo fast, you are suggested to perform
 
-`git lfs clone https://github.com/michaelchanwahyan/datalab.git`
+`git lfs clone -b dockerbuild-trigger https://github.com/michaelchanwahyan/datalab.git`
 
 or
 
-`git clone https://github.com/michaelchanwahyan/datalab.git`
+`git clone -b dockerbuild-trigger https://github.com/michaelchanwahyan/datalab.git`
 
 `cd datalab`
 
