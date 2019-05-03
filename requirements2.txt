@@ -1,4 +1,4 @@
-tensorflow==1.13.0
+tensorflow==1.12.0
 pyspark==2.4.0
 findspark==1.3.0
 slackclient==1.3.1
