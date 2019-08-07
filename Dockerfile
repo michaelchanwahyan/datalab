@@ -97,7 +97,7 @@ RUN apt-get -y update ;\
 # max mem consumed per core      <-- spark.driver.memory
 # prevent rdd.collect() exceed   <-- spark.driver.maxResultSize
 
-RUN apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev ;\
+RUN apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev libvtk6-dev ;\
     apt-get -y install libx11-dev xorg-dev libglu1-mesa-dev libgl1-mesa-glx libglew-dev libglfw3-dev libjsoncpp-dev libpng-dev libpng16-dev libjpeg-dev ;\
     apt-get -y update ;\
     apt-get -y install r-base python3.6 ;\
