@@ -57,8 +57,6 @@ ENV SHELL=/bin/bash \
 #    google-cloud-sdk-bigtable-emulator
 #    kubectl
 
-COPY [ "jdk-8u171-linux-x64.tar.gz" , "/" ]
-
 RUN apt-get -y update ;\
     apt-get -y upgrade ;\
     apt-get -y install screen apt-utils cmake htop wget vim nano curl git \
@@ -71,8 +69,7 @@ RUN apt-get -y update ;\
     apt-get -y update ;\
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 ;\
     apt-get -y update ;\
-    tar  -zxvf jdk-8u171-linux-x64.tar.gz ;\
-    rm   -f    jdk-8u171-linux-x64.tar.gz ;\
+    git clone https://github.com/michaelchanwahyan/jdk1.8.0_171 ;\
     wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.7.tgz ;\
     tar  -zxvf spark-2.4.0-bin-hadoop2.7.tgz ;\
     rm   -f    spark-2.4.0-bin-hadoop2.7.tgz ;\
