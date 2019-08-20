@@ -70,12 +70,8 @@ RUN apt-get -y update ;\
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 ;\
     apt-get -y update ;\
     git clone https://github.com/michaelchanwahyan/jdk1.8.0_171 ;\
-    wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.7.tgz ;\
-    tar  -zxvf spark-2.4.0-bin-hadoop2.7.tgz ;\
-    rm   -f    spark-2.4.0-bin-hadoop2.7.tgz ;\
-    wget https://archive.apache.org/dist/hadoop/core/hadoop-2.7.7/hadoop-2.7.7.tar.gz ;\
-    tar  -zxvf hadoop-2.7.7.tar.gz ;\
-    rm   -f    hadoop-2.7.7.tar.gz ;\
+    git clone https://github.com/michaelchanwahyan/spark-2.4.0-bin-hadoop2.7 ;\
+    git clone https://github.com/michaelchanwahyan/hadoop-2.7.7 ;\
     mkdir /gcs-connector-hadoop ;\
     echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list ;\
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - ;\
@@ -112,9 +108,9 @@ RUN apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev libgmp-dev 
 # http://www.open3d.org/docs/compilation.html
 # ===========================================
 RUN git clone --recursive https://github.com/intel-isl/Open3D ;\
+    cd /Open3D ;\
     git checkout tags/0.6.0 ;\
     git branch release-0.6.0 ;\
-    cd /Open3D ;\
     mkdir build ;\
     cd build ;\
     cmake -DBUILD_EIGEN3=ON \
