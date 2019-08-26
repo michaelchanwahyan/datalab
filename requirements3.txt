@@ -1,4 +1,4 @@
-nltk==3.4.1
+nltk==3.4.5
 implicit==0.3.8
 toolz==0.9.0
 fastcache==1.0.2
