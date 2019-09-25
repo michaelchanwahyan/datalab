@@ -97,9 +97,24 @@ RUN apt-get -y update ;\
 # max mem consumed per core      <-- spark.driver.memory
 # prevent rdd.collect() exceed   <-- spark.driver.maxResultSize
 
-RUN apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev ;\
-    apt-get -y install libx11-dev xorg-dev libglu1-mesa-dev libgl1-mesa-glx libglew-dev libglfw3-dev libjsoncpp-dev libpng-dev libpng16-dev libjpeg-dev ;\
+RUN apt-get -y update ;\
+    apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev ;\
     apt-get -y update ;\
+    apt-get -y install libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev ;\
+    apt-get -y update ;\
+    apt-get -y install libboost-thread-dev libtbb-dev libgmp-dev libflann-dev ;\
+    apt-get -y update ;\
+    apt-get -y install libblkid-dev e2fslibs-dev libboost-all-dev libaudit-dev ;\
+    apt-get -y update ;\
+    apt-get -y install freeglut3-dev libusb-1.0-0-dev libx11-dev xorg-dev ;\
+    apt-get -y update ;\
+    apt-get -y install libglu1-mesa-dev libgl1-mesa-glx libglew-dev libglfw3-dev ;\
+    apt-get -y update ;\
+    apt-get -y install libjsoncpp-dev libpng-dev libpng16-dev libjpeg-dev ;\
+    apt-get -y update ;\
+    apt-get -y install libudev-dev libopenni-dev libopenni2-dev ;\
+    apt-get -y update ;\
+    apt-get -y install libpcl-dev ;\
     apt-get -y install r-base python3.6 ;\
     curl https://bootstrap.pypa.io/get-pip.py | python3.6 ;\
     rm -f /usr/bin/python3  && ln -s /usr/bin/python3.6  /usr/bin/python3 ;\
