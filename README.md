@@ -38,17 +38,13 @@ note: currently it points to the branch `dockerbuild-trigger`
 
 ##### Remark 2:
 
-To download this repo fast, you are suggested to perform
+To download this repo and build it on your own, you may want to
 
-`git lfs clone -b dockerbuild-trigger https://github.com/michaelchanwahyan/datalab.git`
-
-or
-
-`git clone -b dockerbuild-trigger https://github.com/michaelchanwahyan/datalab.git`
+`git clone -b dockerbuild-trigger --recurse-submodule https://github.com/michaelchanwahyan/datalab.git`
 
 `cd datalab`
 
-`git lfs pull`
+`bash buildimg.sh # note: it helps clean out dangling docker imgaes !`
 
 ### Contributed by:
 
