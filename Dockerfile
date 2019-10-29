@@ -126,8 +126,8 @@ RUN apt-get -y update ;\
 # ===========================================
 RUN git clone --recursive https://github.com/intel-isl/Open3D ;\
     cd /Open3D ;\
-    git checkout tags/0.6.0 ;\
-    git branch release-0.6.0 ;\
+    git fetch --all --tags ;\
+    git checkout tags/v0.8.0 -b release-v0.8.0 ;\
     mkdir build ;\
     cd build ;\
     cmake -DBUILD_EIGEN3=ON \
@@ -151,16 +151,22 @@ RUN git clone --recursive https://github.com/intel-isl/Open3D ;\
 
 # jupyter(lab) related python packages are
 # required before installing interactive R kernel
-COPY [ "requirements0.txt" , "requirements1.txt" , "requirements2.txt" , "requirements3.txt" , "requirements4.txt" , "requirements5.txt" , "/" ]
-RUN pip3 install -r requirements0.txt ;\
-    R -e 'install.packages(c("devtools", "bayesAB", "plyr", "dplyr", "data.table", "bigrquery", "pwr", "cowsay", "fortunes", "progress", "ggplot2", "forecast"))' ;\
+#COPY [ "requirements0.txt" , "requirements1.txt" , "requirements2.txt" , "requirements3.txt" , "requirements4.txt" , "requirements5.txt" , "/" ]
+COPY [ "requirements0.txt" , "/" ]
+RUN pip3 install -r requirements0.txt
+RUN R -e 'install.packages(c("devtools", "bayesAB", "plyr", "dplyr", "data.table", "bigrquery", "pwr", "cowsay", "fortunes", "progress", "ggplot2", "forecast"))' ;\
     R -e 'devtools::install_github("IRkernel/IRkernel")' ;\
-    R -e 'IRkernel::installspec()' ;\
-    pip3 install -r requirements1.txt ;\
-    pip3 install -r requirements2.txt ;\
-    pip3 install -r requirements3.txt ;\
-    pip3 install -r requirements4.txt ;\
-    pip3 install -r requirements5.txt
+    R -e 'IRkernel::installspec()'
+COPY [ "requirements1.txt" , "/" ]
+RUN pip3 install -r requirements1.txt
+COPY [ "requirements2.txt" , "/" ]
+RUN pip3 install -r requirements2.txt
+COPY [ "requirements3.txt" , "/" ]
+RUN pip3 install -r requirements3.txt
+COPY [ "requirements4.txt" , "/" ]
+RUN pip3 install -r requirements4.txt
+COPY [ "requirements5.txt" , "/" ]
+RUN pip3 install -r requirements5.txt
 
 RUN jupyter nbextension enable --py widgetsnbextension ;\
     jupyter serverextension enable --py jupyterlab
