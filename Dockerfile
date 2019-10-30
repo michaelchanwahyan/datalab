@@ -170,15 +170,11 @@ RUN pip3 install -r requirements5.txt
 
 RUN jupyter nbextension enable --py widgetsnbextension ;\
     jupyter serverextension enable --py jupyterlab
-    #jupyter serverextension enable --py jupyterlab ;\
     #jupyter labextension install @jupyterlab/latex
-
-RUN pip3 install git+https://github.com/IcarusSO/nbparameterise.git
-
 
 COPY [ ".bashrc" , ".vimrc"               , "/root/"                 ]
 COPY [ "core-site.xml"                    , "$HADOOP_CONF_DIR"       ]
-COPY [ "startup.sh"                       , "/"                      ]
+COPY [ "app_template"                       , "/"                      ]
 COPY [ "airflow"                          , "/opt/airflow"           ]
 
 EXPOSE 9090 9999
