@@ -2,7 +2,7 @@ ipython==7.0.1
 jupyter==1.0.0
 jupyter-client==5.2.3
 jupyter-console==5.2.0
-jupyter-core==4.4.0
+jupyter-core==4.6.1
 jupyterlab==0.34.9
 jupyterlab-launcher==0.13.1
 protobuf==3.6.1
