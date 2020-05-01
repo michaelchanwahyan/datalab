@@ -23,7 +23,7 @@ ENV SHELL=/bin/bash \
     SPARK_HOME=/spark-2.4.0-bin-hadoop2.7 \
     SPARK_PATH=/spark-2.4.0-bin-hadoop2.7 \
     YARN_HOME=/hadoop-2.7.7 \
-    PATH=$PATH:/root/anaconda/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/local/lib:/usr/lib:/usr/sbin:/usr/bin:/sbin:/bin:/hadoop-2.7.7/sbin:/hadoop-2.7.7/bin:/Open3D/lib
+    PATH=$PATH:/bin:/usr/local/sbin:/usr/local/bin:/usr/local/lib:/usr/lib:/usr/sbin:/usr/bin:/sbin:/bin:/hadoop-2.7.7/sbin:/hadoop-2.7.7/bin:/jdk1.8.0_171/bin
 
 # ========================
 # Jupyter Lab installation
@@ -65,11 +65,10 @@ RUN apt-get -y update ;\
                cowsay fortune sl ;\
     add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial/' ;\
     apt-get -y update ;\
-    add-apt-repository ppa:jonathonf/python-3.6 ;\
-    apt-get -y update ;\
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 ;\
-    apt-get -y update ;\
-    git clone https://github.com/michaelchanwahyan/jdk1.8.0_171 ;\
+    apt-get -y update
+
+RUN git clone https://github.com/michaelchanwahyan/jdk1.8.0_171 ;\
     git clone https://github.com/michaelchanwahyan/spark-2.4.0-bin-hadoop2.7 ;\
     git clone https://github.com/michaelchanwahyan/hadoop-2.7.7 ;\
     mkdir /gcs-connector-hadoop ;\
@@ -92,62 +91,25 @@ RUN apt-get -y update ;\
 
 RUN apt-get -y update ;\
     apt-get -y install libcurl4-openssl-dev libssl-dev libeigen3-dev ;\
-    apt-get -y update ;\
     apt-get -y install libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev ;\
-    apt-get -y update ;\
     apt-get -y install libboost-thread-dev libtbb-dev libflann-dev ;\
-    apt-get -y update ;\
     apt-get -y install libblkid-dev e2fslibs-dev libboost-all-dev libaudit-dev ;\
-    apt-get -y update ;\
     apt-get -y install freeglut3-dev libusb-1.0-0-dev libx11-dev xorg-dev ;\
-    apt-get -y update ;\
     apt-get -y install libvtk6-dev ;\
-    apt-get -y update ;\
     apt-get -y install libglu1-mesa-dev libgl1-mesa-glx libglew-dev libglfw3-dev ;\
-    apt-get -y update ;\
     apt-get -y install libjsoncpp-dev libpng-dev libpng16-dev libjpeg-dev ;\
-    apt-get -y update ;\
     apt-get -y install libudev-dev libopenni-dev libopenni2-dev ;\
-    apt-get -y update ;\
     apt-get -y install libpcl-dev ;\
-    apt-get -y install r-base python3.6 ;\
-    curl https://bootstrap.pypa.io/get-pip.py | python3.6 ;\
-    rm -f /usr/bin/python3  && ln -s /usr/bin/python3.6  /usr/bin/python3 ;\
-    rm -f /usr/bin/python3m && ln -s /usr/bin/python3.6m /usr/bin/python3m ;\
-    apt-get -y install python3.6-dev ;\
-    apt-get -y upgrade ;\
-    apt-get -y install python3.6-tk ;\
-    curl -sL https://deb.nodesource.com/setup_10.x | bash - ;\
-    apt-get install -y nodejs
+    apt-get -y install r-base
 
-# ===========================================
-# Open3D project compilation reference:
-# http://www.open3d.org/docs/compilation.html
-# ===========================================
-RUN git clone --recursive https://github.com/intel-isl/Open3D ;\
-    cd /Open3D ;\
-    git fetch --all --tags ;\
-    git checkout tags/v0.8.0 -b release-v0.8.0 ;\
-    mkdir build ;\
-    cd build ;\
-    cmake -DBUILD_EIGEN3=ON \
-          -DBUILD_GLEW=ON \
-          -DBUILD_GLFW=ON \
-          -DBUILD_JPEG=ON \
-          -DBUILD_JSONCPP=ON \
-          -DBUILD_PNG=ON \
-          -DBUILD_PYBIND11=OFF \
-          -DBUILD_PYTHON_MODULE=OFF \
-          -BUILD_PYTHON_TUTORIALS=OFF \
-          -WITH_OPENMP=ON \
-          -DCMAKE_INSTALL_PREFIX=/Open3D \
-          .. ;\
-    cd /Open3D/build ;\
-    make -j4 ;\
+# build and install Python3.6.8
+RUN wget https://www.python.org/ftp/python/3.6.8/Python-3.6.8.tgz ;\
+    tar -zxvf Python-3.6.8.tgz ;\
+    cd Python-3.6.8 ;\
+    ./configure ;\
+    make ;\
     make install ;\
-    cd /Open3D/docs ;\
-    doxygen Doxyfile ;\
-    cd /
+    pip3 install --upgrade pip
 
 # jupyter(lab) related python packages are
 # required before installing interactive R kernel
