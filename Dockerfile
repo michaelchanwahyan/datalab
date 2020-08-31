@@ -62,7 +62,7 @@ RUN apt-get -y update ;\
     apt-get -y install screen apt-utils cmake htop wget vim nano curl git \
                software-properties-common apt-transport-https net-tools \
                bc npm ca-certificates musl-dev gcc make g++ gfortran doxygen \
-               cowsay fortune sl ;\
+               imagemagick cowsay fortune sl ;\
     add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial/' ;\
     apt-get -y update ;\
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 ;\
