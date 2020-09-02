@@ -133,6 +133,8 @@ RUN jupyter nbextension enable --py widgetsnbextension ;\
 
 RUN pip3 install git+https://github.com/IcarusSO/nbparameterise.git
 
+RUN pip3 install git+https://git@github.com/ping/instagram_private_api.git@1.6.0
+
 
 COPY [ ".bashrc" , ".vimrc"               , "/root/"                 ]
 COPY [ "core-site.xml"                    , "$HADOOP_CONF_DIR"       ]
