@@ -100,7 +100,8 @@ RUN apt-get -y update ;\
     apt-get -y install libjsoncpp-dev libpng-dev libpng16-dev libjpeg-dev ;\
     apt-get -y install libudev-dev libopenni-dev libopenni2-dev ;\
     apt-get -y install libpcl-dev ;\
-    apt-get -y install r-base
+    apt-get -y install r-base ;\
+    apt-get -y install libbz2-dev
 
 # build and install Python3.6.8
 RUN wget https://www.python.org/ftp/python/3.6.8/Python-3.6.8.tgz ;\
@@ -113,26 +114,37 @@ RUN wget https://www.python.org/ftp/python/3.6.8/Python-3.6.8.tgz ;\
 
 # jupyter(lab) related python packages are
 # required before installing interactive R kernel
-#COPY [ "requirements0.txt" , "requirements1.txt" , "requirements2.txt" , "requirements3.txt" , "requirements4.txt" , "requirements5.txt" , "/" ]
+
 COPY [ "requirements0.txt" , "/" ]
 RUN pip3 install -r requirements0.txt
 RUN R -e 'install.packages(c("devtools", "bayesAB", "plyr", "dplyr", "data.table", "bigrquery", "pwr", "cowsay", "fortunes", "progress", "ggplot2", "forecast"))' ;\
     R -e 'devtools::install_github("IRkernel/IRkernel")' ;\
     R -e 'IRkernel::installspec()'
+
 COPY [ "requirements1.txt" , "/" ]
 RUN pip3 install -r requirements1.txt
+
 COPY [ "requirements2.txt" , "/" ]
-RUN pip3 install -r requirements2.txt
+RUN pip3 install -r requirements2.txt ;\
+    pip3 uninstall -y tensorboard-plugin-wit ;\
+    pip3 uninstall -y tensorboard
+
 COPY [ "requirements3.txt" , "/" ]
 RUN pip3 install -r requirements3.txt
+
 COPY [ "requirements4.txt" , "/" ]
 RUN pip3 install -r requirements4.txt
+
 COPY [ "requirements5.txt" , "/" ]
 RUN pip3 install -r requirements5.txt
 
 RUN jupyter nbextension enable --py widgetsnbextension ;\
     jupyter serverextension enable --py jupyterlab
     #jupyter labextension install @jupyterlab/latex
+
+RUN pip3 install git+https://github.com/IcarusSO/nbparameterise.git
+
+RUN pip3 install git+https://git@github.com/ping/instagram_private_api.git@1.6.0
 
 COPY [ ".bashrc" , ".vimrc"               , "/root/"                 ]
 COPY [ "core-site.xml"                    , "$HADOOP_CONF_DIR"       ]
