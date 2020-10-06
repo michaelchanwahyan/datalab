@@ -9,3 +9,4 @@ h5py==2.10.0
 arrow==0.16.0
 pattern3==3.0.0
 django-file-md5==1.0.3
+networkx==2.5
