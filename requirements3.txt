@@ -16,3 +16,5 @@ plotly==4.9.0
 open3d-python==0.7.0.0
 pptk==0.1.0
 laspy==1.7.0
+setuptools==56.0.0
+python-pcl==0.3.0a1
