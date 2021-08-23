@@ -5,6 +5,6 @@ jupyter-console==6.2.0
 jupyter-core==4.6.3
 protobuf==3.13.0
 ipywidgets==7.4.1
-jupyterlab==2.2.6
+jupyterlab==2.2.10
 jupyterlab-launcher==0.13.1
 nbconvert==5.6.1
