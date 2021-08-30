@@ -1,1 +1,1 @@
-apache-airflow==1.10.12
+apache-airflow==2.1.2
