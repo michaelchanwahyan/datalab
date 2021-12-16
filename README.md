@@ -7,7 +7,16 @@
 ![alt text](https://user-images.githubusercontent.com/10301755/56483988-cf5e1b80-64ff-11e9-8fa7-f266af734deb.png)
 
 # Sufficient Packages
-![alt text](https://user-images.githubusercontent.com/10301755/56467600-90728c00-6453-11e9-88a4-edb5f71a4815.png)
+
+| Kernel                    | Python 3.8   | R            |            |       |
+| ------------------------- | ------------ | ------------ | ---------- | ----- |
+| Python Packages Highlight | numpy        | pandas       |            |       |
+| Visualization             | matplotlib   |              |            |       |
+| Machine Learning          | scikit-learn | scikit-image | scipy      | cvxpy |
+|                           | opencv       | nltk         | networkx   | osqp  |
+|                           | ecos         | gensim       | jieba      |       |
+| Deep Learning             | pytorch      | torchvision  | torchaudio |       |
+| Data Engineering          | pyspark      | airflow      | jupyter    |       |
 
 # Introduction
 
