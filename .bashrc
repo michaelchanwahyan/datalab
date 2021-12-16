@@ -113,13 +113,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# =========================
-# Icarus & Michael s' Personalization
-# =========================
+# =================
+#  Personalization
+# =================
 
 clear
-
-#export PATH="~/anaconda/bin:$PATH"
 
 PS1='\n$(date)\n$(pwd)\n[$(whoami) @ docker] $ '
 
@@ -152,7 +150,9 @@ alias              yp='python'
 alias              p3='python3'
 alias             py3='python3'
 alias             yp3='python3'
+alias              sr='screen -R'
+alias             sls='screen -ls'
+alias             tfs='tail -f /status'
 alias        baretail='tail -f'
 alias        killtask='kill -9 '
 
-loop() { while true ; do clear ; "$1" ; "$2" ; "$3" ; sleep 1 ; done }
