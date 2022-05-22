@@ -50,11 +50,15 @@ RUN cd / ;\
 #RUN cd / ;\
 #    wget https://archive.apache.org/dist/hadoop/common/hadoop-3.2.0/hadoop-3.2.0-src.tar.gz ;\
 #    tar -zxvf hadoop-3.2.0-src.tar.gz
+#RUN cd / ;\
+#    wget https://dlcdn.apache.org/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz ;\
+#    tar -zxvf spark-3.2.0-bin-hadoop3.2.tgz
 RUN cd / ;\
-    wget https://dlcdn.apache.org/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz ;\
+    wget https://archive.apache.org/dist/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz ;\
     tar -zxvf spark-3.2.0-bin-hadoop3.2.tgz
 
 # prerequisites of Python 3.8
+RUN apt-get -y update
 RUN apt-get -y install \
         build-essential \
         libbz2-dev \
