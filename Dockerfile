@@ -8,20 +8,13 @@ ENV SHELL=/bin/bash \
     PYTHONIOENCODING=UTF-8 \
     AIRFLOW_HOME=/app/airflow \
     AIRFLOW_GPL_UNIDECODE=yes \
-    HADOOP_COMMON_HOME=/hadoop-3.2.0 \
-    HADOOP_COMMON_LIB_NATIVE_DIR=/hadoop-3.2.0/lib/native \
-    HADOOP_CONF_DIR=/hadoop-3.2.0/etc/hadoop \
-    HADOOP_HDFS_HOME=/hadoop-3.2.0 \
-    HADOOP_HOME=/hadoop-3.2.0 \
-    HADOOP_INSTALL=/hadoop-3.2.0 \
-    HADOOP_MAPRED_HOME=/hadoop-3.2.0 \
-    JAVA_HOME=/jdk1.8.0_171 \
+    JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 \
     PYSPARK_DRIVER_PYTHON="jupyter" \
     PYSPARK_DRIVER_PYTHON_OPTS="notebook" \
     PYSPARK_PYTHON=python3 \
-    SPARK_HOME=/spark-3.2.0-bin-hadoop3.2 \
-    SPARK_PATH=/spark-3.2.0-bin-hadoop3.2 \
-    PATH=$PATH:/bin:/cmake-3.22.1-linux-x86_64/bin:/hadoop-2.7.7/bin:/hadoop-2.7.7/sbin:/jdk1.8.0_171/bin:/sbin:/usr/bin:/usr/lib:/usr/local/bin:/usr/local/lib:/usr/local/sbin:/usr/local/sbin:/usr/sbin
+    SPARK_HOME=/spark-3.2.1-bin-hadoop3.2 \
+    SPARK_PATH=/spark-3.2.1-bin-hadoop3.2 \
+    PATH=$PATH:/cmake-3.22.1-linux-x86_64/bin:/usr/lib/jvm/java-8-openjdk-amd64:/bin:/sbin:/usr/bin:/usr/lib:/usr/local/bin:/usr/local/lib:/usr/local/sbin:/usr/local/sbin:/usr/sbin
 
 RUN apt-get -y update
 RUN apt-get -y install \
@@ -35,6 +28,7 @@ RUN apt-get -y install \
         make \
         nano \
         net-tools \
+        openjdk-8-jdk-headless \
         screen \
         vim \
         wget
@@ -42,20 +36,21 @@ RUN apt-get -y install \
 RUN cd / ;\
     wget https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1-linux-x86_64.tar.gz ;\
     tar -zxvf cmake-3.22.1-linux-x86_64.tar.gz
-RUN cd / ;\
-    git clone https://github.com/michaelchanwahyan/jdk1.8.0_171 
+# jdk1,8,0_171 is replaced by ubuntu openjdk-8-jdk-headless
 #RUN cd / ;\
-#    wget https://archive.apache.org/dist/hadoop/common/hadoop-3.2.0/hadoop-3.2.0.tar.gz ;\
-#    tar -zxvf hadoop-3.2.0.tar.gz
-#RUN cd / ;\
-#    wget https://archive.apache.org/dist/hadoop/common/hadoop-3.2.0/hadoop-3.2.0-src.tar.gz ;\
-#    tar -zxvf hadoop-3.2.0-src.tar.gz
+#    git clone https://github.com/michaelchanwahyan/jdk1.8.0_171
+
+
+
+
+
+
 #RUN cd / ;\
 #    wget https://dlcdn.apache.org/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz ;\
 #    tar -zxvf spark-3.2.0-bin-hadoop3.2.tgz
 RUN cd / ;\
-    wget https://archive.apache.org/dist/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz ;\
-    tar -zxvf spark-3.2.0-bin-hadoop3.2.tgz
+    wget https://archive.apache.org/dist/spark/spark-3.2.1/spark-3.2.1-bin-hadoop3.2.tgz ;\
+    tar -zxvf spark-3.2.1-bin-hadoop3.2.tgz
 
 # prerequisites of Python 3.8
 RUN apt-get -y update
@@ -80,14 +75,14 @@ RUN cd / ;\
     tar -zxvf Python-3.8.12.tgz
 RUN cd /Python-3.8.12 ;\
     ./configure --disable-test-modules --without-doc-strings ;\
-    make ;\
+    make -j4 ;\
     make install
 
 RUN pip3 install --upgrade pip
- 
+RUN pip3 install wheel
 RUN pip3 install \
         pyarrow==6.0.1
-RUN PYSPARK_HADOOP_VERSION=3.2 pip3 install pyspark
+RUN PYSPARK_HADOOP_VERSION=3.2 pip3 install pyspark==3.2.1
 
 RUN pip3 install \
         ipython==7.30.1 \
@@ -140,6 +135,12 @@ RUN pip3 install \
         plyfile==0.7.4 \
         scs==2.1.4 \
         toolz==0.11.2
+
+# package for speech recognition
+# text-to-speech and speech-to-text
+RUN pip3 install \
+        auditok==0.2.0 \
+        azure-cognitiveservices-speech==1.22.0
 
 RUN DEBIAN_FRONTEND=nointeract \
     apt-get -y install --no-install-recommends \
