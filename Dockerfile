@@ -1,6 +1,6 @@
 # Dockerfile for building general development
 # environment for Data Science Analytics
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 LABEL maintainer "michaelchan_wahyan@yahoo.com.hk"
 
 ENV SHELL=/bin/bash \
@@ -8,169 +8,211 @@ ENV SHELL=/bin/bash \
     PYTHONIOENCODING=UTF-8 \
     AIRFLOW_HOME=/app/airflow \
     AIRFLOW_GPL_UNIDECODE=yes \
+    CMAKE_PATH=/cmake-3.25.3-linux-x86_64 \
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 \
     PYSPARK_DRIVER_PYTHON="jupyter" \
     PYSPARK_DRIVER_PYTHON_OPTS="notebook" \
     PYSPARK_PYTHON=python3 \
-    SPARK_HOME=/spark-3.2.1-bin-hadoop3.2 \
-    SPARK_PATH=/spark-3.2.1-bin-hadoop3.2 \
-    PATH=$PATH:/cmake-3.22.1-linux-x86_64/bin:/usr/lib/jvm/java-8-openjdk-amd64:/bin:/sbin:/usr/bin:/usr/lib:/usr/local/bin:/usr/local/lib:/usr/local/sbin:/usr/local/sbin:/usr/sbin
+    PYTHONPATH=/spark-3.3.2-bin-without-hadoop/python:/spark-3.3.2-bin-without-hadoop/python/lib/py4j-0.10.9.5-src.zip \
+    R_PATH=/opt/R/4.1.3 \
+    SPARK_HOME=/spark-3.3.2-bin-without-hadoop \
+    SPARK_PATH=/spark-3.3.2-bin-without-hadoop \
+    PATH=/bin:/usr/bin:/usr/local/bin:/lib:/lib64:/lib32:/libx32:/usr/lib:/usr/local/lib:/sbin:/usr/sbin:/usr/local/sbin:/cmake-3.25.3-linux-x86_64/bin:/opt/R/4.1.3/bin:/opt/R/4.1.3/lib:/opt/R/4.1.3/share:/usr/lib/jvm/java-8-openjdk-amd64:/spark-3.3.2-bin-without-hadoop/bin:/spark-3.3.2-bin-without-hadoop/python
 
 RUN apt-get -y update
 RUN apt-get -y install \
         apt-transport-https \
         apt-utils \
         bc \
+        build-essential \
         curl \
         gcc \
         git \
         htop \
-        make \
-        nano \
-        net-tools \
-        openjdk-8-jdk-headless \
-        screen \
-        vim \
-        wget
-
-RUN cd / ;\
-    wget https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1-linux-x86_64.tar.gz ;\
-    tar -zxvf cmake-3.22.1-linux-x86_64.tar.gz
-# jdk1,8,0_171 is replaced by ubuntu openjdk-8-jdk-headless
-#RUN cd / ;\
-#    git clone https://github.com/michaelchanwahyan/jdk1.8.0_171
-
-
-
-
-
-
-#RUN cd / ;\
-#    wget https://dlcdn.apache.org/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz ;\
-#    tar -zxvf spark-3.2.0-bin-hadoop3.2.tgz
-RUN cd / ;\
-    wget https://archive.apache.org/dist/spark/spark-3.2.1/spark-3.2.1-bin-hadoop3.2.tgz ;\
-    tar -zxvf spark-3.2.1-bin-hadoop3.2.tgz
-
-# prerequisites of Python 3.8
-RUN apt-get -y update
-RUN apt-get -y install \
-        build-essential \
         libbz2-dev \
         libc6-dev \
         libcurl4-openssl-dev \
         libffi-dev \
+        libfontconfig1-dev \
         libgdbm-dev \
         libncursesw5-dev \
-        libreadline-gplv2-dev \
         libsqlite3-dev \
+        libxml2-dev \
         libssl-dev \
+        make \
+        nano \
+        net-tools \
+        openjdk-8-jdk-headless \
         openssl \
+        screen \
+        sqlite3 \
+        vim \
+        wget \
         zlib1g-dev
-# build Python 3.8.12
-# option --disable-test-modules : Install Options
-# option --without-doc-strings  : Performance Options
+
+# ----------------------------------------------------------------------------
+# build R
+# ----------------------------------------------------------------------------
+RUN sed -i.bak "/^#.*deb-src.*universe$/s/^# //g" /etc/apt/sources.list
+RUN apt -y update ;\
+    DEBIAN_FRONTEND=noninteractive \
+    apt -y build-dep r-base
 RUN cd / ;\
-    wget https://www.python.org/ftp/python/3.8.12/Python-3.8.12.tgz ;\
-    tar -zxvf Python-3.8.12.tgz
-RUN cd /Python-3.8.12 ;\
-    ./configure --disable-test-modules --without-doc-strings ;\
-    make -j4 ;\
+    curl -O https://cran.rstudio.com/src/base/R-4/R-4.1.3.tar.gz ;\
+    tar -xzvf R-4.1.3.tar.gz
+RUN cd R-4.1.3 ;\
+    ./configure \
+        --prefix=/opt/R/4.1.3 \
+        --enable-R-shlib \
+        --enable-memory-profiling \
+        --with-blas \
+        --with-lapack ;\
+    make -j1 ;\
     make install
 
-RUN pip3 install --upgrade pip
-RUN pip3 install wheel
+# ----------------------------------------------------------------------------
+# install R packages and iR
+# ----------------------------------------------------------------------------
+RUN R -e 'install.packages(c("IRkernel"),repos="https://ftp.osuosl.org/pub/cran/")'
+RUN R -e 'install.packages("devtools",repos="https://ftp.osuosl.org/pub/cran/")'
+RUN R -e 'devtools::install_github("IRkernel/IRkernel@1.3.2")'
+
+# ----------------------------------------------------------------------------
+# build Python 3.10.10
+# ----------------------------------------------------------------------------
+# option --disable-test-modules : Install Options
+# option --without-doc-strings  : Performance Options
+# option --enable-optimizations
+RUN cd / ;\
+    wget https://www.python.org/ftp/python/3.10.10/Python-3.10.10.tgz ;\
+    tar -zxvf Python-3.10.10.tgz
+RUN cd Python-3.10.10 ;\
+    ./configure \
+        --disable-test-modules \
+        --without-doc-strings \
+        --enable-loadable-sqlite-extensions \
+        --enable-optimizations ;\
+    make -j1 ;\
+    make install
+
+# ----------------------------------------------------------------------------
+# upgrade pip and install wheel
+# ----------------------------------------------------------------------------
+RUN pip3 install --upgrade pip ;\
+    pip3 install wheel
+
+# ----------------------------------------------------------------------------
+# install CMake 3.25.3
+# ----------------------------------------------------------------------------
+RUN cd / ;\
+    wget https://github.com/Kitware/CMake/releases/download/v3.25.3/cmake-3.25.3-linux-x86_64.tar.gz ;\
+    tar -zxvf cmake-3.25.3-linux-x86_64.tar.gz
+
+# ----------------------------------------------------------------------------
+# install Spark 3.3.2
+# ----------------------------------------------------------------------------
+RUN cd / ;\
+    wget https://archive.apache.org/dist/spark/spark-3.3.2/spark-3.3.2-bin-without-hadoop.tgz ;\
+    tar -zxvf spark-3.3.2-bin-without-hadoop.tgz
+
+# ----------------------------------------------------------------------------
+# install PySpark
+# ----------------------------------------------------------------------------
+RUN cd /spark-3.3.2-bin-without-hadoop ;\
+    cd python ;\
+    apt -y install python3-setuptools ;\
+    pip3 install py4j ;\
+    python3 setup.py sdist
+
+# ----------------------------------------------------------------------------
+# install python packages for JupyterLab and iPython
+# ----------------------------------------------------------------------------
 RUN pip3 install \
-        pyarrow==6.0.1
-RUN PYSPARK_HADOOP_VERSION=3.2 pip3 install pyspark==3.2.1
+    ipykernel==6.21.2 \
+    ipython==8.11.0 \
+    ipython-genutils==0.2.0 \
+    ipywidgets==8.0.4 \
+    jupyter==1.0.0 \
+    jupyter-console==6.6.2 \
+    jupyter-events==0.6.3 \
+    jupyter-ydoc==0.2.2 \
+    jupyter_client==8.0.3 \
+    jupyter_core==5.2.0 \
+    jupyter_server==2.3.0 \
+    jupyter_server_fileid==0.8.0 \
+    jupyter_server_terminals==0.4.4 \
+    jupyter_server_ydoc==0.6.1 \
+    jupyterlab==3.6.1 \
+    jupyterlab-pygments==0.2.2 \
+    jupyterlab-widgets==3.0.5 \
+    jupyterlab_server==2.19.0
+
+# ----------------------------------------------------------------------------
+# install R and Jupyter-integration
+# this must be done after Jupyter lab is installed
+# ----------------------------------------------------------------------------
+RUN R -e 'IRkernel::installspec(user = FALSE)'
+
+# ----------------------------------------------------------------------------
+# install python packages
+# ----------------------------------------------------------------------------
+RUN pip3 install \
+        cython==0.29.33 \
+        matplotlib==3.7.1 \
+        numpy==1.24.2 \
+        pandas==1.5.3 \
+        pillow==9.4.0 \
+        scikit-image==0.20.0 \
+        scikit-learn==1.2.2 \
+        scipy==1.10.1
+
+# pytorch-cpu 1.12.0, torchvision-cpu 0.13.0, torchtext-cpu 0.13.0, torchaudio 0.12.0
+RUN pip3 install https://download.pytorch.org/whl/cpu/torch-1.12.0%2Bcpu-cp310-cp310-linux_x86_64.whl
+# from https://download.pytorch.org/whl/torch/
+RUN pip3 install https://download.pytorch.org/whl/cpu/torchvision-0.13.0%2Bcpu-cp310-cp310-linux_x86_64.whl
+# from https://download.pytorch.org/whl/torchvision/
+RUN pip3 install https://download.pytorch.org/whl/torchtext-0.13.0-cp310-cp310-linux_x86_64.whl
+# from https://download.pytorch.org/whl/torchtext/
+RUN pip3 install https://download.pytorch.org/whl/cpu/torchaudio-0.12.0%2Bcpu-cp310-cp310-linux_x86_64.whl
+# from https://download.pytorch.org/whl/torchaudio/
 
 RUN pip3 install \
-        ipython==7.30.1 \
-        ipython-genutils==0.2.0 \
-        jupyter==1.0.0 \
-        jupyter-client==7.1.0 \
-        jupyter-console==6.4.0 \
-        jupyter-core==4.9.1 \
-        jupyter-server==1.13.1 \
-        jupyterlab==3.2.5 \
-        jupyterlab-launcher==0.13.1 \
-        jupyterlab-pygments==0.1.2 \
-        jupyterlab-server==2.8.2 \
-        jupyterlab-widgets==1.0.2
+        arrow==1.2.3 \
+        lxml==4.9.2 \
+        multiprocess==0.70.14 \
+        pattern3==3.0.0 \
+        pyarrow==11.0.0
 
 RUN pip3 install \
-        cython==0.29.25 \
-        matplotlib==3.3.1 \
-        numpy==1.21.4 \
-        pandas==1.3.4 \
-        pillow==8.4.0 \
-        scikit-image==0.19.0 \
-        scikit-learn==1.0.1 \
-        scipy==1.7.3
+        opencv-python==4.7.0.72
 
 RUN pip3 install \
-        torch==1.10.0+cpu \
-        torchaudio==0.10.0+cpu \
-        torchvision==0.11.1+cpu \
-        -f https://download.pytorch.org/whl/cpu/torch_stable.html
+        auditok==0.2.0 \
+        cvxpy==1.3.0 \
+        ecos==2.0.12 \
+        gensim==4.3.1 \
+        networkx==3.0 \
+        nltk==3.8.1 \
+        osqp==0.6.2.post8 \
+        scs==3.2.2
 
 RUN pip3 install \
         anytree==2.8.0 \
-        arrow==1.2.1 \
-        cvxpy==1.1.17 \
         django-file-md5==1.0.3 \
-        ecos==2.0.8 \
-        gensim==4.1.2 \
-        h5py==3.6.0 \
+        h5py==3.8.0 \
         jieba==0.42.1 \
-        laspy==2.0.3 \
-        lxml==4.7.0 \
-        multiprocess==0.70.12.2 \
-        networkx==2.6.3 \
-        nltk==3.6.4 \
-        opencv-python==4.5.4.60 \
-        osqp==0.6.2.post0 \
-        pattern3==3.0.0 \
-        plotly==5.4.0 \
+        laspy==2.4.1 \
+        plotly==5.13.1 \
         plyfile==0.7.4 \
-        scs==2.1.4 \
-        toolz==0.11.2
+        toolz==0.12.0
 
-# package for speech recognition
-# text-to-speech and speech-to-text
-RUN pip3 install \
-        auditok==0.2.0 \
-        azure-cognitiveservices-speech==1.22.0
+RUN pip install \
+    "apache-airflow[celery]==2.5.1" \
+    --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-3.10.txt"
 
-RUN DEBIAN_FRONTEND=nointeract \
-    apt-get -y install --no-install-recommends \
-        freetds-bin \
-        krb5-user \
-        ldap-utils \
-        libsasl2-2 \
-        libsasl2-modules \
-        libssl1.1 \
-        locales  \
-        lsb-release \
-        sasl2-bin \
-        sqlite3 \
-        unixodbc
+RUN mkdir /app
 
-# install airflow
-# airflow needs a home. '/app/airflow' is now set as $AIRFLOW_HOME
-# AIRFLOW_VERSION=2.0.1
-# PYTHON_VERSION=3.8
-# CONSTRAINT_URL=
-# https://raw.githubusercontent.com/apache/
-#         airflow/constraints-${AIRFLOW_VERSION}/
-#         constraints-${PYTHON_VERSION}.txt"
-RUN pip3 install apache-airflow==2.0.1 \
-    --constraint https://raw.githubusercontent.com/apache/airflow/constraints-2.0.1/constraints-3.8.txt
-
-RUN mkdir -p /app/airflow/dags
 COPY ["startup.sh", "/"]
 COPY [".bashrc", ".vimrc", "/root/"]
-COPY ["airflow/dags/first-airflow-tutorial.py", "/app/airflow/dags/"]
 EXPOSE 8080 9090 9999
-
 CMD [ "/bin/bash" ]
