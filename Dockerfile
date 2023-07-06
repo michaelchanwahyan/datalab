@@ -219,6 +219,8 @@ RUN pip install \
     "apache-airflow[celery]==2.5.1" \
     --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-3.10.txt"
 
+RUN mv /hadoop-3.3.4/etc/hadoop/log4j.properties /hadoop-3.3.4/etc/hadoop/log4j.properties.bak ;\
+    sed /hadoop-3.3.4/etc/hadoop/log4j.properties.bak -e 's/hadoop.root.logger=INFO/hadoop.root.logger=ERROR/' > /hadoop-3.3.4/etc/hadoop/log4j.properties
 RUN mkdir /app
 
 COPY ["startup.sh", "/"]
