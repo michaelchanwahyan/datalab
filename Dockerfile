@@ -19,7 +19,7 @@ ENV SHELL=/bin/bash \
     SPARK_PATH=/spark-3.3.2-bin-without-hadoop \
     HADOOP_HOME=/hadoop-3.3.4/ \
     SPARK_DIST_CLASSPATH=/hadoop-3.3.4/etc/hadoop:/hadoop-3.3.4/share/hadoop/common/lib/*:/hadoop-3.3.4/share/hadoop/common/*:/hadoop-3.3.4/share/hadoop/hdfs:/hadoop-3.3.4/share/hadoop/hdfs/lib/*:/hadoop-3.3.4/share/hadoop/hdfs/*:/hadoop-3.3.4/share/hadoop/mapreduce/*:/hadoop-3.3.4/share/hadoop/yarn:/hadoop-3.3.4/share/hadoop/yarn/lib/*:/hadoop-3.3.4/share/hadoop/yarn/* \
-    PATH=/bin:/usr/bin:/usr/local/bin:/lib:/lib64:/lib32:/libx32:/usr/lib:/usr/local/lib:/sbin:/usr/sbin:/usr/local/sbin:/cmake-3.25.3-linux-x86_64/bin:/opt/R/4.1.3/bin:/opt/R/4.1.3/lib:/opt/R/4.1.3/share:/usr/lib/jvm/java-8-openjdk-amd64:/spark-3.3.2-bin-without-hadoop/bin:/spark-3.3.2-bin-without-hadoop/python
+    PATH=/usr/local/bin:/bin:/usr/bin:/lib:/lib64:/lib32:/libx32:/usr/lib:/usr/local/lib:/sbin:/usr/sbin:/usr/local/sbin:/cmake-3.25.3-linux-x86_64/bin:/opt/R/4.1.3/bin:/opt/R/4.1.3/lib:/opt/R/4.1.3/share:/usr/lib/jvm/java-8-openjdk-amd64:/spark-3.3.2-bin-without-hadoop/bin:/spark-3.3.2-bin-without-hadoop/python
 
 RUN apt-get -y update
 RUN apt-get -y install \
@@ -101,6 +101,7 @@ RUN cd Python-3.10.10 ;\
 # upgrade pip and install wheel
 # ----------------------------------------------------------------------------
 RUN pip3 install --upgrade pip ;\
+    pip3 install setuptools
     pip3 install wheel
 
 # ----------------------------------------------------------------------------
