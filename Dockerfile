@@ -101,7 +101,7 @@ RUN cd Python-3.10.10 ;\
 # upgrade pip and install wheel
 # ----------------------------------------------------------------------------
 RUN pip3 install --upgrade pip ;\
-    pip3 install setuptools
+    pip3 install setuptools ;\
     pip3 install wheel
 
 # ----------------------------------------------------------------------------
